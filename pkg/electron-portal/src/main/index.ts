@@ -45,6 +45,7 @@ function createWindow() {
   // const html = dev ? `http:\\\\localhost:${PORT}` : `file://${__dirname}/index.html`;
   const html = `file://${__dirname}/index.html`;
 
+  mainWindow.webContents.openDevTools();
   console.log(`main process load html from ${html}`);
   mainWindow.loadURL(html);
 
