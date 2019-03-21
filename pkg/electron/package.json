@@ -1,5 +1,5 @@
 {
-  "name": "portal",
+  "name": "electron-portal",
   "version": "0.5.0",
   "private": true,
   "main": "./dist/main.js",
