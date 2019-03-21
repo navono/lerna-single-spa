@@ -23,10 +23,7 @@ module.exports = {
         test: /\.(png|jpg|gif)$/,
         use: [
           {
-            loader: 'file-loader',
-            options: {
-              publicPath: '/app1/'
-            }
+            loader: 'url-loader',
           }
         ]
       }
