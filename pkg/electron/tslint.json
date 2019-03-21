@@ -1,0 +1,26 @@
+{
+  "extends": ["tslint:latest", "tslint-react", "tslint-plugin-prettier"],
+  "jsRules": {},
+  "rules": {
+    "prettier": true,
+    "max-line-length": false,
+    "trailing-comma": false,
+    "semicolon": false,
+    "quotemark": [true, "single", "jsx-double"],
+    "ordered-imports": false,
+    "object-literal-sort-keys": false,
+    "arrow-parens": [true, "ban-single-arg-parens"],
+    "jsx-no-multiline-js": false,
+    "jsx-boolean-value": ["always"],
+    "no-shadowed-variable": false,
+    "no-submodule-imports": false,
+    "no-implicit-dependencies": false,
+    "object-literal-shorthand": false,
+    "only-arrow-functions": false,
+    "no-console": {
+      "severity": "warning",
+      "options": ["debug", "info", "log", "time", "timeEnd", "trace"]
+    }
+  },
+  "rulesDirectory": []
+}
