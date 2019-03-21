@@ -13,7 +13,7 @@ import * as singleSpa from 'single-spa';
 import { loadApp } from '../helper';
 
 async function bootstrap() {
-  const root = `${process.cwd()}/../../release/electron-portal`;
+  const root = `${process.cwd()}/build`;
   console.log('bootstrap root ', root);
 
   await loadApp('app1', '/app1', `file://${root}/app1/singleSpaEntry.js`);
