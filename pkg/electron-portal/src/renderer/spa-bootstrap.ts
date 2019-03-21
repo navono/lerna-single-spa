@@ -41,7 +41,7 @@ export async function loadApp(name: string, hash: string, appURL: string) {
 }
 
 async function bootstrap() {
-  const root = `${process.cwd()}//dist`;
+  const root = `${process.cwd()}//release`;
   await loadApp('app1', '/app1', `file://${root}/app1/singleSpaEntry.js`);
 
   singleSpa.start();
