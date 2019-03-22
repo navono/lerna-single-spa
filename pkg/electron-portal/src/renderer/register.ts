@@ -1,5 +1,5 @@
 import * as singleSpa from 'single-spa';
-// import '../../libs/system';
+import '../../libs/system';
 
 export interface Project {
   name: string;

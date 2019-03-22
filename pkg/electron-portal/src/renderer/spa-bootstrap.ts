@@ -1,26 +1,26 @@
-// For React test
-// import * as React from 'react';
-// import * as ReactDOM from 'react-dom';
-// import App from './App';
-
-// ReactDOM.render(
-//   <App />,
-//   document.getElementById('app')
-// );
-
-// import 'zone.js';
 import * as singleSpa from 'single-spa';
-import { loadApp } from '../helper';
+// import { loadApp } from '../helper';
+import { loadApp } from './register';
+import { GlobalEventDistributor } from './globalEventDistributor';
+
+const globalEventDistributor = new GlobalEventDistributor();
 
 async function bootstrap() {
   const root = `${process.cwd()}/build`;
   console.log('bootstrap root ', root);
 
-  await loadApp('app1', '/app1', `file://${root}/app1/singleSpaEntry.js`);
-  await loadApp('app2', '/app2', `file://${root}/app2/singleSpaEntry.js`);
+  // await loadApp('app1', '/app1', `file://${root}/app1/singleSpaEntry.js`);
+  // await loadApp('app2', '/app2', `file://${root}/app2/singleSpaEntry.js`);
 
-  // console.log('electron bootstrap');
-  // await loadApp('app1', '/app1', '/app1/singleSpaEntry.js');
+  await loadApp({
+    name: 'app2',
+    prefix: '/app2',
+    appURL: `file://${root}/app2/singleSpaEntry.js`,
+    storeURL: `file://${root}/app2/store.js`,
+    base: true, 
+    path: '',
+    globalEventDistributor: globalEventDistributor
+  });
 
   singleSpa.start();
 }
