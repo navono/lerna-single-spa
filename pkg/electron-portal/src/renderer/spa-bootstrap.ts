@@ -17,6 +17,7 @@ async function bootstrap() {
   console.log('bootstrap root ', root);
 
   await loadApp('app1', '/app1', `file://${root}/app1/singleSpaEntry.js`);
+  await loadApp('app2', '/app2', `file://${root}/app2/singleSpaEntry.js`);
 
   // console.log('electron bootstrap');
   // await loadApp('app1', '/app1', '/app1/singleSpaEntry.js');
