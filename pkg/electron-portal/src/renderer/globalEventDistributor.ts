@@ -1,27 +1,27 @@
 import { Store } from 'redux';
 
 export class GlobalEventDistributor {
-    private stores: Store[];
+    private stores: Map<string, Store>;
     constructor() {
-        this.stores = [];
+        this.stores = new Map();
     }
 
-    registerStore(store: any) {
-        this.stores.push(store);
+    registerStore(name: string, store: any) {
+        this.stores.set(name, store);
     }
 
     dispatch(event) {
-        this.stores.forEach((s: any) => {
-            s.dispatch(event)
-            setTimeout(()=>s.dispatch({type:'REFRESH'}))
+        this.stores.forEach((store: any) => {
+            store.dispatch(event)
+            setTimeout(()=>store.dispatch({type:'REFRESH'}))
             
         });
     }
     
     getState() {
         let state = {};
-        this.stores.forEach((s) => {
-            let currentState = s.getState();
+        this.stores.forEach((store: any) => {
+            let currentState = store.getState();
             state[currentState.namespace] = currentState
         });
         return state

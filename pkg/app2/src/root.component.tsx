@@ -9,17 +9,18 @@ import { setGlobalSyncId } from "./global/actions";
 import HomePage from "./pages/Home";
 import TestPage from "./pages/Test";
 import styles from "./style.css";
+import { history } from './store';
 
 interface IRootProps {
   dispatch: Dispatch;
   store: Store;
   history: History;
-  globalEventDistributor: Store;
+  globalEventDistributor: any;
 }
 
 class Root extends React.Component<IRootProps, {}> {
   state = {
-    store: this.props.store,
+    store: this.props.globalEventDistributor.stores.get('app2'),
     globalEventDistributor: this.props.globalEventDistributor,
   };
 
@@ -28,13 +29,13 @@ class Root extends React.Component<IRootProps, {}> {
   }
 
   handleGlobal = () => {
-    this.props.dispatch(setGlobalSyncId());
+    this.state.store.dispatch(setGlobalSyncId());
   }
 
   render() {
     return (
       <Provider store={this.state.store}>
-        <Router history={this.props.history}>
+        <Router history={history}>
           <div>
             {/* layout struct(like nav, sidebar...) */}
             <div className={styles["nav-container"]}>
@@ -49,7 +50,6 @@ class Root extends React.Component<IRootProps, {}> {
             <button onClick={this.handleGlobal}>
               tirgger global action
             </button>
-
           </div>
         </Router>
       </Provider>
@@ -57,12 +57,4 @@ class Root extends React.Component<IRootProps, {}> {
   }
 }
 
-const mapStateToProps = (state: IStoreState) => {
-  const { global } = state;
-  console.log('App mapStateToProps global: ', global);
-  return {
-    global,
-  };
-};
-
-export default  connect(mapStateToProps)(Root);
+export default Root;

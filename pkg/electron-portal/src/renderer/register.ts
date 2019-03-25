@@ -1,5 +1,6 @@
 import * as singleSpa from 'single-spa';
 import '../../libs/system';
+import { GlobalEventDistributor } from './globalEventDistributor';
 
 export interface Project {
   name: string;
@@ -50,38 +51,44 @@ export function pathPrefix({path, prefix}) {
   }
 }
 
-export async function loadApp({name, prefix, appURL, storeURL, base, path, globalEventDistributor}) {
+interface Param {
+  name: string;
+  prefix: string;
+  appURL: string;
+  storeURL: string,
+  base: boolean;
+  path: string;
+  globalEventDistributor: GlobalEventDistributor ;
+}
+
+export async function loadApp(param: Param) {
   let storeModule = {
     storeInstance: {},
   },
-    customProps = { globalEventDistributor: globalEventDistributor, store: {} };
+    customProps = { globalEventDistributor: param.globalEventDistributor };
 
   // try to import the store module
   try {
-    storeModule = storeURL
-      ? await SystemJS.import(storeURL)
+    storeModule = param.storeURL
+      ? await SystemJS.import(param.storeURL)
       : { storeInstance: null };
   } catch (e) {
-    console.log(`Could not load store of app ${name} from ${storeURL}.`, e);
+    console.log(`Could not load store of app ${name} from ${param.storeURL}.`, e);
   }
 
-  console.log('storeModule ', storeModule);
-  
-  if (storeModule.storeInstance && globalEventDistributor) {
-    // add a reference of the store to the customProps
-    customProps.store = storeModule.storeInstance;
-
+  if (storeModule.storeInstance && param.globalEventDistributor) {
     // register the store with the globalEventDistributor
-    globalEventDistributor.registerStore(storeModule.storeInstance);
+    param.globalEventDistributor.registerStore(param.name, storeModule.storeInstance);
   }
-
   
-    //准备自定义的 props,传入每一个单独工程项目
-    customProps = { store: storeModule, globalEventDistributor: globalEventDistributor };
+    // 准备自定义的 props,传入每一个单独工程项目。
+    // 因为 React-Redux v6+ 后，不支持从外界传入 Store 进行构造，因此不再单独传入 store，
+    // 可通过 globalEventDistributor 获取
+    customProps = { globalEventDistributor: param.globalEventDistributor };
     singleSpa.registerApplication(
-      name,
-      () => SystemJS.import(appURL),
-      base ? (() => true) : pathPrefix({path, prefix}),
+      param.name,
+      () => SystemJS.import(param.appURL),
+      param.base ? (() => true) : pathPrefix({path: param.path, prefix: param.prefix}),
       customProps
     );
 }

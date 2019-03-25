@@ -9,8 +9,6 @@ export function hashPrefix(prefix: string) {
 }
 
 export async function loadApp(name: string, hash: string, appURL: string) {
-  console.log('loadApp');
-
   singleSpa.registerApplication(
     name,
     () => SystemJS.import(appURL),
