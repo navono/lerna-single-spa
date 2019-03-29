@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "start": "cross-env NODE_ENV=development node scripts/start.js",
-    "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+    "build": "node scripts/build.js && yarn cp",
+    "test": "node scripts/test.js",
+    "cp": "rm -rf ../electron-portal/build/base/ && cp -rf ./build ../electron-portal/build/base/"
   },
   "dependencies": {
     "@babel/core": "7.2.2",

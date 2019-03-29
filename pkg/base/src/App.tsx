@@ -81,7 +81,7 @@ class App extends Component {
               minHeight: 280
             }}
           >
-            Content
+            Content a
           </Content>
         </Layout>
       </Layout>
