@@ -1,9 +1,7 @@
 import * as singleSpa from 'single-spa';
 import '../../libs/system';
-// import * as loadjs from 'loadjs';
 import { GlobalEventDistributor } from './globalEventDistributor';
 
-// loadjs(['/path/to/foo.js', '/path/to/bar.js'], {returnPromise: true})
 export interface Project {
   name: string;
   entryURL: string;
@@ -73,7 +71,6 @@ export async function loadApp(param: Param) {
   try {
     storeModule = param.storeURL
       ? await SystemJS.import(param.storeURL)
-      // ? await loadjs([`${param.storeURL}`], param.storeURL, {returnPromise: true}) as {}
       : { storeInstance: null };
   } catch (e) {
     console.log(`Could not load store of app ${name} from ${param.storeURL}.`, e);
@@ -91,7 +88,6 @@ export async function loadApp(param: Param) {
     singleSpa.registerApplication(
       param.name,
       () => SystemJS.import(param.appURL),
-      // () => loadjs([`${param.appURL}`], {returnPromise: true}),
       param.base ? (() => true) : pathPrefix({path: param.path, prefix: param.prefix}),
       customProps
     );
