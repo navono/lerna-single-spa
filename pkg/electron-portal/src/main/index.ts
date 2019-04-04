@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, ipcMain } from 'electron';
 import console = require('console');
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -85,4 +85,8 @@ app.on('activate', () => {
   if (mainWindow === null) {
     createWindow();
   }
+});
+
+ipcMain.on('get-app-path', event => {
+  event.returnValue = app.getAppPath();
 });
