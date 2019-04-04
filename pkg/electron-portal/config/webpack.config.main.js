@@ -8,7 +8,7 @@ module.exports = merge(baseConfig, {
   devtool: 'cheap-module-source-map',
   entry: ['./main/index'],
   output: {
-    // path: paths.outPutPath,
+    path: paths.appBuild,
     filename: 'main.js',
     libraryTarget: 'commonjs2'
   },

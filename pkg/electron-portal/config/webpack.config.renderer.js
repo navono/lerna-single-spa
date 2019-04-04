@@ -38,7 +38,7 @@ const devConfig = merge(baseConfig, {
   output: {
     pathinfo: true,
     // publicPath: '/',
-    // path: paths.outPutPath,
+    path: paths.appBuild,
     filename: 'spa-bootstrap.js',
     libraryTarget: 'commonjs2',
   },
