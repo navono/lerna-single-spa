@@ -73,11 +73,14 @@
     "appId": "supcon.appdev",
     "asar": false,
     "files": [
-      "build/",
+      "build/**/*",
       "node_modules/",
       "./build/index.html",
       "./build/main.js.map",
       "./build/main.js",
+      "./build/spa-bootstrap.js",
+      "./build/spa-bootstrap.js.map",
+      "./build/system.js.",
       "package.json"
     ],
     "win": {
